@@ -119,8 +119,8 @@ Replace the `<build>` section with the following
 ## Environment Variables (complete list)
 ```bash
 BILLING_SERVICE_ADDRESS=billing-service;
-BILLING_SERVICE_GRPC_PORT=9005;
-JAVA_TOOL_OPTIONS=-agentlib:jdwp\=transport\=dt_socket,server\=y,suspend\=n,address\=*:5005;
+BILLING_SERVICE_GRPC_PORT=9001;
+JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005;
 SPRING_DATASOURCE_PASSWORD=password;
 SPRING_DATASOURCE_URL=jdbc:postgresql://patient-service-db:5432/db;
 SPRING_DATASOURCE_USERNAME=admin_user;
