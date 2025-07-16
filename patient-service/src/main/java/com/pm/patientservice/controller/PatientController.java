@@ -1,5 +1,6 @@
 package com.pm.patientservice.controller;
 
+import com.pm.patientservice.dto.PagedPatientResponseDTO;
 import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.dto.validators.CreatePatientValidationGroup;
@@ -11,14 +12,7 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/patients")
@@ -33,8 +27,15 @@ public class PatientController {
 
   @GetMapping
   @Operation(summary = "Get Patients")
-  public ResponseEntity<List<PatientResponseDTO>> getPatients() {
-    List<PatientResponseDTO> patients = patientService.getPatients();
+  public ResponseEntity<PagedPatientResponseDTO> getPatients(
+          @RequestParam(defaultValue = "1") int page,
+          @RequestParam(defaultValue = "10") int size,
+          @RequestParam(defaultValue = "asc") String sort,
+          @RequestParam(defaultValue = "name") String sortField,
+          @RequestParam(defaultValue = "") String searchValue
+  ) {
+    PagedPatientResponseDTO patients =
+            patientService.getPatients(page, size, sort, sortField, searchValue);
     return ResponseEntity.ok().body(patients);
   }
 
